@@ -1,0 +1,25 @@
+CSSKeeper
+========================================================================
+
+Tools for keeping CSS files and usage in check.
+
+
+## CLI Tools ##
+
+### Sceletor ###
+
+_Master villain or just a selector skeleton producer?_
+
+    $ sceletor DIR [FILE_ENDING]
+
+Parses html files and prints out a tree representing the structure
+(css-selector style).
+
+Shows the frequency for how many pages a specific subtree appears in. Can
+"anonymize" generated ID:s.
+
+
+## Modules ##
+
+* `csskeeper/tree`
+
