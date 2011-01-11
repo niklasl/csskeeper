@@ -1,7 +1,13 @@
 CSSKeeper
 ========================================================================
 
-Tools for keeping CSS files and usage in check.
+Tools for keeping CSS files and usage in check. Written in CoffeScript, running
+on Node.js.
+
+
+## Install ##
+
+    $ npm install csskeeper
 
 
 ## CLI Tools ##
@@ -18,8 +24,16 @@ Parses html files and prints out a tree representing the structure
 Shows the frequency for how many pages a specific subtree appears in. Can
 "anonymize" generated ID:s.
 
+**TIP:** View the output in Vim with these settings:
+
+    setfiletype css
+    set shiftwidth=2 foldmethod=indent
+
 
 ## Modules ##
 
+Use the source Luke.
+
 * `csskeeper/tree`
+
 

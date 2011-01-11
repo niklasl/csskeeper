@@ -2,7 +2,7 @@
   "name": "csskeeper",
   "version": "0.1.0",
   "description": "Tools for keeping CSS files and usage in check.",
-  "homepage": "",
+  "homepage": "https://github.com/niklasl/csskeeper",
   "author": "Niklas Lindström <lindstream@gmail.com>",
   "keywords": [ "css", "html", "tool" ],
   "dependencies": {
@@ -13,4 +13,9 @@
     "lib": "./js/lib",
     "bin": "./js/bin"
   },
+  "licenses" : [
+    { "type" : "BSD",
+      "url" : "https://github.com/niklasl/csskeeper/raw/master/LICENSE" }
+  ]
+
 }
