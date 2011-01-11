@@ -45,6 +45,7 @@ buildItemPathTree = (source, node, parentItem, idMasher=null)->
   current = parentItem.add(source, selector)
   for node in filter(node.childNodes, (node)-> node.nodeType == 1)
     buildItemPathTree(source, node, current, idMasher)
+  return
 
 
 this.output = output = (write, nodeItem, sources, indent=2, level=0, parentRatio=0)->
