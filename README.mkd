@@ -1,22 +1,49 @@
 CSSKeeper
 ========================================================================
 
-Tools for keeping CSS files and usage in check. Written in CoffeScript, running
-on Node.js.
+A set of utilites for keeping CSS files and usage in check.
+
+It is written in [CoffeScript](http://jashkenas.github.com/coffee-script/),
+mainly for running on [Node.js](http://nodejs.org/).
 
 
 ## Install ##
 
+The easiest way is to use [NPM](http://npmjs.org/):
+
     $ npm install csskeeper
 
 
-## CLI Tools ##
+## The CLI ##
 
-### Sceletor ###
+_Master villain or just a selector skeleton keeper?_
 
-_Master villain or just a selector skeleton producer?_
+The `sceletor` command is an entry point for the features of CSSKeeper.
 
-    $ sceletor DIR [FILE_ENDING]
+Synopsis:
+
+    $ sceletor COMMAND [...]
+
+The available commands mainly work on local HTML files. While this might sound
+unuseful at first, I assure you it is not. You just have to take an initial
+step before: *run webtests* on your webapp and *save the live html states*.
+
+You can do this with several tools, including WebDriver (Selenium 2) and
+Zombie.js. (Or for a one-off (or a zen master of rituals) just by browsing and
+saving the html of interesting web page states.)
+
+With this in mind, consider the following features of CSSKeeper's `sceletor`
+tool.
+
+### Tree ###
+
+Synopsis:
+
+    $ sceletor tree HTML_SOURCE_GLOB
+
+Example:
+
+    $ sceletor tree 'webspecs/build/screenshots/**/*-state.html'
 
 Parses html files and prints out a tree representing the structure
 (css-selector style).
@@ -29,11 +56,38 @@ Shows the frequency for how many pages a specific subtree appears in. Can
     setfiletype css
     set shiftwidth=2 foldmethod=indent
 
+### CSS Usage ###
+
+Synopsis:
+
+    $ sceletor usage HTML_SOURCE_GLOB CSS_GLOB, ...
+
+Example:
+
+    $ sceletor usage 'webspecs/build/screenshots/**/*-state.html' webapp/src/media/css/*.css
+
+This parses the CSS, extracting the selectors, then loops through the HTML
+files to scan for used CSS selectors. When it's done it prints out a list of
+unused selectors per CSS file.
 
 ## Modules ##
 
-Use the source Luke.
+See the source.
 
 * `csskeeper/tree`
+* `csskeeper/cssuse`
+* `csskeeper/util`
+* `csskeeper/cli/sceletor`
 
+## Tribute ##
+
+CSSKeeper uses the following packages for all the heavy work:
+
+* [jsdom](http://jsdom.org/)
+* [cssom](https://github.com/NV/CSSOM)
+* [jquery](http://jquery.com/)
+* [glob](https://github.com/isaacs/node-glob)
+* [underscore](http://documentcloud.github.com/underscore/)
+
+And of course, Node and CoffeScript.
 

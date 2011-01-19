@@ -40,7 +40,7 @@ buildItemPathTree = (source, node, parentItem, idMasher=null)->
 
   classNames = node.getAttribute('class')
   if classNames
-    selector += (for s in classNames.split(/\s+/) then if s then '.'+s).join("")
+    selector += ('.'+s for s in classNames.split(/\s+/) when s).join("")
 
   current = parentItem.add(source, selector)
   for node in filter(node.childNodes, (node)-> node.nodeType == 1)

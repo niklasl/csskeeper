@@ -1,24 +1,31 @@
 fs = require 'fs'
 path = require 'path'
+glob = require 'glob'
 
 
-getFilePaths = (dir, suffix, fpaths=[])->
-  if fs.statSync(dir).isFile()
-    return [dir]
-  for fname in fs.readdirSync(dir)
-    fpath = path.join(dir, fname)
-    file = fs.statSync(fpath)
-    if file.isDirectory()
-      getFilePaths(fpath, suffix, fpaths)
-    else if fpath[fpath.length-suffix.length ... fpath.length] == suffix
-      fpaths.push fpath
-  fpaths
+getFilePaths = (expr, results=[], recurseFrom=null)->
+  if expr.indexOf('*') is -1 and fs.statSync(expr).isFile()
+    return [expr]
+
+  if expr.indexOf('**') > -1
+    [recurseFrom, expr] = expr.split(/\*\*./) # + sep
+
+  for fpath in glob.globSync(path.join(recurseFrom, expr))
+    results.push(fpath)
+
+  if recurseFrom
+    for fname in fs.readdirSync(recurseFrom)
+      fpath = path.join(recurseFrom, fname)
+      if fs.statSync(fpath).isDirectory()
+        getFilePaths(expr, results, fpath)
+
+  results
 
 this.getFilePaths = getFilePaths
 
 
-this.getFileSources = (dir, suffix)->
-  new FileSource(fpath) for fpath in getFilePaths(dir, suffix)
+this.getFileSources = (expr)->
+  new FileSource(fpath) for fpath in getFilePaths(expr)
 
 
 class FileSource

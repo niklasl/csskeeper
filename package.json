@@ -1,17 +1,22 @@
 {
   "name": "csskeeper",
-  "version": "0.1.0",
+  "version": "0.2.0beta1",
   "description": "Tools for keeping CSS files and usage in check.",
   "homepage": "https://github.com/niklasl/csskeeper",
   "author": "Niklas Lindström <lindstream@gmail.com>",
   "keywords": [ "css", "html", "tool" ],
   "dependencies": {
     "jsdom": ">= 0.1.20",
-    "underscore": ">= 0.1.3"
+    "cssom": ">= 0.2.0",
+    "underscore": ">= 0.1.3",
+    "glob": ">= 1.1.0"
   },
   "directories": {
     "lib": "./js/lib",
     "bin": "./js/bin"
+  },
+  "scripts": {
+    "build": "cake build"
   },
   "licenses" : [
     { "type" : "BSD",
