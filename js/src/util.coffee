@@ -10,7 +10,7 @@ getFilePaths = (expr, results=[], recurseFrom=null)->
   if expr.indexOf('**') > -1
     [recurseFrom, expr] = expr.split(/\*\*./) # + sep
 
-  for fpath in glob.globSync(path.join(recurseFrom, expr))
+  for fpath in glob.sync(path.join(recurseFrom, expr))
     results.push(fpath)
 
   if recurseFrom
