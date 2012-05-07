@@ -26,7 +26,9 @@ this.computeCssTree = (sources, idSkipPattern=DEFAULT_ID_SKIP_PATTERN, genIdToke
   rootItem = new NodeItem
   for source in sources
     data = source.read()
-    window = jsdom.jsdom(data, null).createWindow()
+    window = jsdom.jsdom(data, null, features:
+            FetchExternalResources: false
+            ProcessExternalResources: false).createWindow()
     root = find(window.document.childNodes, (node)-> node.nodeType == 1)
     buildItemPathTree(source, root, rootItem, idMasher)
   rootItem

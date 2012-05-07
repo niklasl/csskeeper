@@ -29,7 +29,9 @@ this.reportCssUsage = (sources, cssSources, log=console.log)->
   for source in sources
     log "Using source: <#{source.path}>"
     data = source.read()
-    window = jsdom.jsdom(data, null).createWindow()
+    window = jsdom.jsdom(data, null, features:
+            FetchExternalResources: false
+            ProcessExternalResources: false).createWindow()
     $ = jquery.create(window)
     cssNameRefs = []
     $('link[rel=stylesheet]').each(-> cssNameRefs.push basename $(@).attr('href'))
@@ -45,8 +47,8 @@ this.reportCssUsage = (sources, cssSources, log=console.log)->
           if $(sel).length
             log "  matched: #{sel} (#{$(sel).length} items)"
             delete unusedSelectors[sel]
-        catch e
-          if e.indexOf("Syntax error") > -1
+        catch err
+          if err.toString().indexOf("Syntax error") > -1
             # .. unsupported pseudo-element in selector, e.g. :link, :hover, :content, :after..
             # TODO: filter at collect time instead? (and bookkeep fixed?)
             delete unusedSelectors[sel]
@@ -54,7 +56,7 @@ this.reportCssUsage = (sources, cssSources, log=console.log)->
             if not $(fixedRule).length
               unusedSelectors[fixedRule] = false
           else
-            log "  #{e} [for selector '#{sel}']"
+            log "  #{err} [for selector '#{sel}']"
 
   log()
   for cssSheet in cssSheets
